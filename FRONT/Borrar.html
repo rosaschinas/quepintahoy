@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Qué Pinta Hoy</title>
+    <link rel="icon" href="img/favicon.ico" type="image/x-icon">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+
+<body>
+
+    <header>
+        <nav class="navbar navbar-expand-lg">
+            <div class="container">
+                <a class="navbar-brand" href="index.html">
+                    <img src="img/logo/iso qph bco sfondo.png" alt="Logo" width="120">
+                </a>
+
+                <button class="navbar-toggler text-white" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarNav">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ms-auto">
+                        <a href="Listado.html" class="btn btn-custom-secondary">Panel de Eventos</a>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main class="container my-5">
+        <h2 class="text-center mb-4">Eliminar Evento</h2>
+
+        <div class="d-flex justify-content-center mb-4">
+            <input type="number" class="form-control me-2 w-auto" id="buscar-id" placeholder="Ingresa el ID del evento">
+            <button class="btn btn-custom-secondary" onclick="Buscar()">Buscar</button>
+        </div>
+
+        <table class="table table-striped mx-auto my-5">
+            <thead>
+                <tr>
+                    <th id="th_id">ID</th>
+                    <th id="th_artista">Artista</th>
+                    <th id="th_categoria">Categoria</th>
+                    <th id="th_sala">Sala</th>
+                    <th id="fecha">Fecha</th>
+                    <th id="th_hora">Hora</th>
+                </tr>
+            </thead>
+            <tbody id="eventos-lista">
+            </tbody>
+        </table>
+
+        <div class="text-center mt-4">
+            <button class="btn btn-custom-primary" onclick="Eliminar()">Eliminar</button>
+        </div>
+    </main>
+
+    <footer class="py-4">
+        <div class="container">
+            <div class="row">
+                <a class="col-md-3 mb-3" href="index.html">
+                    <img src="img/logo/logo qph bco sfondo.png" alt="Logo Que Pinta Hoy" class="img-fluid">
+                </a>
+                <div class="col-md-3 mb-3">
+                    <ul class="list-unstyled text-center">
+                        <li><a href="Carga.html" class="text-white">Publicá tu evento</a></li>
+                        <li><a href="#" class="text-white">Contactanos</a></li>
+                        <li><a href="#" class="text-white">Sobre Nosotros</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3 mb-3">
+                    <ul class="list-unstyled d-flex justify-content-center">
+                        <li class="me-3"><a href="https://facebook.com" class="text-white"><i
+                                    class="fab fa-facebook-f"></i></a></li>
+                        <li class="me-3"><a href="https://twitter.com" class="text-white"><i
+                                    class="fab fa-twitter"></i></a></li>
+                        <li><a href="https://instagram.com" class="text-white"><i class="fab fa-instagram"></i></a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3 mb-3">
+                    <p class="footer-small-text"><span class="highlight">Qué Pinta Hoy</span> es tu agenda confiable
+                        para descubrir los mejores recitales y eventos en Córdoba. <span class="highlight">¡No te
+                            pierdas lo que está por venir!</span></p>
+                    <p class="footer-small-text">Constanza Ferreyra - Proyecto Integrador I - 2024</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+    <script>
+        function Buscar() {
+            const id = document.getElementById("buscar-id").value;
+            get(parseInt(id));
+        }
+    
+        function Eliminar() {
+            const id = document.getElementById("buscar-id").value;
+    
+            if (confirm("¿Estás seguro de que deseas eliminar este evento? Esta acción no se puede deshacer.")) {
+                del(parseInt(id));
+            }
+        }
+    
+        function get(id) {
+            $.ajax({
+                type: "GET",
+                dataType: "json",
+                url: "http://localhost:58803/api/Evento/" + id,
+                success: function (data) {
+                    const tbody = document.querySelector("tbody");
+                    tbody.innerHTML = '';
+    
+                    const fecha = new Date(data.Fecha);
+                    const fechaFormateada = fecha.toLocaleDateString('es-AR');
+                    const horaFormateada = data.Hora.slice(0, 5);
+                    let _tr = `<tr>
+                        <td>${data.ID}</td>
+                        <td>${data.Artista}</td>
+                        <td>${data.Categoria}</td>
+                        <td>${data.Sala}</td>
+                        <td>${fechaFormateada}</td>
+                        <td>${horaFormateada}</td>
+                    </tr>`;
+                    tbody.innerHTML = _tr;
+                },
+                error: function () {
+                    alert("No se encontró el evento con el ID especificado.");
+                }
+            });
+        }
+    
+        function del(id) {
+            $.ajax({
+                type: "DELETE",
+                url: "http://localhost:58803/api/Evento/" + id,
+                success: function () {
+                    alert("Evento eliminado con éxito");
+                    document.querySelector("tbody").innerHTML = '';
+                    document.getElementById("buscar-id").value = '';
+                },
+                error: function () {
+                    alert("No se pudo eliminar el evento. Verifica que el ID sea correcto.");
+                }
+            });
+        }
+    
+        document.getElementById("buscar-id").addEventListener("keyup", function (event) {
+            if (event.key === "Enter") {
+                Buscar();
+            }
+        });
+    </script>    
+
+</body>
+</html>
