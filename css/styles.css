@@ -1,0 +1,141 @@
+/* COLORES */
+:root {
+    --azul: #1737CA;
+    --celeste: #5271FF;
+    --claro: #8c9ff8;
+    --oscuro: #0a1d74;
+    --blanco: #f5f5f5;
+}
+
+/* GENERAL */
+body {
+    font-family: 'Poppins', sans-serif !important;
+    transition: transform 0.3s ease, color 0.3s ease;
+    background-color: var(--blanco);
+}
+
+.highlight {
+    font-weight: 600;
+}
+
+/* BARRA NAVEGACION */
+.navbar {
+    background-color: var(--azul);
+}
+
+.navbar-nav .nav-link {
+    color: var(--blanco);
+}
+
+.navbar-nav .nav-link:hover {
+    transform: scale(1.05);
+    color: var(--claro);
+}
+
+.navbar-brand img {
+    transition: transform 0.3s ease;
+}
+
+.navbar-brand img:hover {
+    transform: scale(1.05);
+}
+
+/* MENU LINEAS */
+.navbar-toggler {
+    background-color: var(--azul);
+    border-color: var(--blanco);
+}
+
+.navbar-toggler-icon {
+    background-color: transparent;
+    background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='%23f5f5f5' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
+}
+
+/* BOTONES */
+.btn-custom-primary {
+    background-color: var(--azul);
+    color: var(--blanco);
+}
+
+.btn-custom-primary:hover {
+    background-color: var(--azul);
+    color: var(--blanco);
+    transform: scale(1.03);
+}
+
+.btn-custom-secondary {
+    background-color: var(--celeste);
+    color: var(--blanco);
+}
+
+.btn-custom-secondary:hover {
+    background-color: var(--celeste);
+    color: var(--blanco);
+    transform: scale(1.03);
+}
+
+.btn-custom-primary,
+.btn-custom-secondary {
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.btn-custom-primary:hover,
+.btn-custom-secondary:hover {
+    box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* CARDS */
+#Cards {
+    background-color: var(--celeste);
+    padding: 40px;
+}
+
+.card {
+    background-color: var(--blanco);
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
+
+.card:hover {
+    transform: scale(1.02);
+    box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.2);
+}
+
+.text-white {
+    color: var(--blanco);
+}
+
+/* TABLA */
+
+.table {
+    width: 70%;
+}
+
+/* FOOTER */
+footer {
+    background-color: var(--azul);
+    user-select: text;
+}
+
+footer a {
+    text-decoration: none;
+    color: var(--blanco);
+}
+
+footer a:hover {
+    opacity: 0.75;
+}
+
+.footer-small-text {
+    font-size: 0.8rem;
+    color: var(--blanco);
+}
+
+footer img {
+    width: 45%;
+    height: auto;
+}
+
+footer .fab {
+    font-size: 1.5rem;
+}
